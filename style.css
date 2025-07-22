@@ -103,3 +103,10 @@ body {
         height: 280px;
     }
 }
+/* Ajustes para móviles */
+@media (max-width: 480px) {
+    .wheel-segment span {
+        font-size: 12px;
+        transform: rotate(90deg) translateX(70px) !important;
+    }
+}
