@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Wheel Picker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google AdSense (solo carga tras consentimiento) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-TU_ID_ADSENSE" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Banner de Cookies (GDPR) -->
+    <div id="cookie-banner" class="cookie-banner">
+        <p>Usamos cookies para personalizar anuncios y analizar tráfico. <a href="/privacy">Política de Privacidad</a>.</p>
+        <div>
+            <button id="accept-cookies">Aceptar</button>
+            <button id="reject-cookies">Rechazar</button>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="container">
+        <header>
+            <h1>Name Wheel Picker</h1>
+            <p>¡Gira la ruleta y elige un ganador al azar!</p>
+        </header>
+
+        <main>
+            <!-- Ruleta -->
+            <div class="wheel-container">
+                <canvas id="wheel" width="400" height="400"></canvas>
+                <div class="spin-button" id="spin-btn">¡Girar!</div>
+                <div class="pointer"></div>
+            </div>
+
+            <!-- Entrada de Nombres -->
+            <div class="input-section">
+                <textarea id="names-input" placeholder="Escribe nombres, uno por línea..."></textarea>
+                <button id="add-names">Añadir</button>
+                <button id="upload-csv">Subir CSV</button>
+                <input type="file" id="csv-file" accept=".csv" style="display: none;">
+            </div>
+
+            <!-- Anuncio AdSense (Ejemplo: Banner Responsivo) -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-TU_ID_ADSENSE"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </main>
+
+        <!-- Panel de Configuración -->
+        <aside class="settings-panel">
+            <h3>Configuración</h3>
+            <div class="setting">
+                <label>Velocidad de giro:</label>
+                <input type="range" id="spin-speed" min="1" max="10" value="5">
+            </div>
+            <div class="setting">
+                <label>Tema:</label>
+                <select id="theme-select">
+                    <option value="light">Claro</option>
+                    <option value="dark">Oscuro</option>
+                </select>
+            </div>
+            <button id="reset-btn">Reiniciar Ruleta</button>
+        </aside>
+    </div>
+
+    <!-- Sonido -->
+    <audio id="spin-sound" src="spin-sound.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="win-sound.mp3" preload="auto"></audio>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
