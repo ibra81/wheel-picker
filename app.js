@@ -1,33 +1,41 @@
-// Configuración inicial
+// Variables globales
 const wheel = document.getElementById('wheel');
 const spinBtn = document.getElementById('spin-btn');
 const namesInput = document.getElementById('names-input');
-const themeBtn = document.getElementById('theme-btn');
-const addBtn = document.getElementById('add-btn');
-const resetBtn = document.getElementById('reset-btn');
-
-let segments = ["Premio 1", "Premio 2", "Premio 3", "Premio 4", "Premio 5"];
+const addBtn = document.getElementById('add-names');
+let segments = [];  // Almacenará los nombres
 let isSpinning = false;
 
-// Inicialización
-function initWheel() {
+// Función para cargar nombres desde el textarea
+function loadNames() {
+    const text = namesInput.value.trim();
+    if (!text) {
+        alert("¡Ingresa al menos un nombre!");
+        return;
+    }
+    
+    // Dividir por saltos de línea y filtrar vacíos
+    segments = text.split('\n').filter(name => name.trim() !== '');
     renderWheel();
+    alert(`¡${segments.length} nombres cargados!`);
 }
 
-// Renderizar ruleta
+// Renderizar ruleta con nombres
 function renderWheel() {
     wheel.innerHTML = '';
+    if (segments.length === 0) return;
+
     const segmentAngle = 360 / segments.length;
     
-    segments.forEach((segment, i) => {
+    segments.forEach((name, i) => {
         const segmentEl = document.createElement('div');
         segmentEl.className = 'wheel-segment';
         segmentEl.style.transform = `rotate(${segmentAngle * i}deg)`;
         segmentEl.style.backgroundColor = `hsl(${(i * 360 / segments.length)}, 70%, 60%)`;
         
         const text = document.createElement('span');
-        text.textContent = segment;
-        text.style.transform = `rotate(${segmentAngle / 2}deg) translateX(120px)`;
+        text.textContent = name;
+        text.style.transform = `rotate(${segmentAngle / 2}deg) translateX(100px) rotate(90deg)`; // Texto vertical
         
         segmentEl.appendChild(text);
         wheel.appendChild(segmentEl);
@@ -55,11 +63,22 @@ function spinWheel() {
     });
 }
 
-// Event listeners
-spinBtn.addEventListener('click', spinWheel);
-themeBtn.addEventListener('click', toggleTheme);
-addBtn.addEventListener('click', addSegments);
-resetBtn.addEventListener('click', resetWheel);
+// Anunciar ganador
+function announceWinner(finalAngle) {
+    const segmentAngle = 360 / segments.length;
+    const winnerIndex = Math.floor((360 - (finalAngle % 360)) / segmentAngle) % segments.length;
+    const winner = segments[winnerIndex];
+    
+    document.getElementById('win-sound').play();
+    alert(`¡El ganador es: ${winner}!`);
+}
 
-// Iniciar
-document.addEventListener('DOMContentLoaded', initWheel);
+// Event listeners
+addBtn.addEventListener('click', loadNames);
+spinBtn.addEventListener('click', spinWheel);
+
+// Inicialización (opcional: carga nombres por defecto)
+document.addEventListener('DOMContentLoaded', () => {
+    namesInput.value = "Ejemplo 1\nEjemplo 2\nEjemplo 3"; // Nombres de prueba
+    loadNames();
+});
