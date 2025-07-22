@@ -1,20 +1,23 @@
-// app.js
 const wheel = document.getElementById('wheel');
 const spinBtn = document.getElementById('spin-btn');
 const namesInput = document.getElementById('names-input');
 const addBtn = document.getElementById('add-names');
+const resultMessage = document.getElementById('result-message');
 let segments = [];
 let isSpinning = false;
 
 function loadNames() {
     const text = namesInput.value.trim();
     if (!text) {
-        alert("Por favor ingresa al menos un nombre");
+        resultMessage.textContent = "Por favor ingresa al menos un nombre";
+        resultMessage.style.color = "#e74c3c";
         return;
     }
     
     segments = text.split('\n').filter(name => name.trim() !== '');
     renderWheel();
+    resultMessage.textContent = `¡${segments.length} nombres cargados! Gira la ruleta.`;
+    resultMessage.style.color = "#2ecc71";
 }
 
 function renderWheel() {
@@ -38,9 +41,17 @@ function renderWheel() {
 }
 
 function spinWheel() {
-    if (isSpinning || segments.length === 0) return;
+    if (isSpinning || segments.length === 0) {
+        if (segments.length === 0) {
+            resultMessage.textContent = "Primero añade nombres";
+            resultMessage.style.color = "#e74c3c";
+        }
+        return;
+    }
     
     isSpinning = true;
+    resultMessage.textContent = "Girando...";
+    resultMessage.style.color = "#3498db";
     
     const rotations = 5 + Math.floor(Math.random() * 5);
     const targetAngle = rotations * 360 + Math.floor(Math.random() * 360);
@@ -61,7 +72,11 @@ function announceWinner(finalAngle) {
     const winnerIndex = Math.floor((360 - (finalAngle % 360)) / segmentAngle) % segments.length;
     const winner = segments[winnerIndex];
     
-    alert(`¡El ganador es: ${winner}!`);
+    resultMessage.innerHTML = `
+        <div style="font-size: 24px; margin-bottom: 10px;">🎉 ¡Felicidades! 🎉</div>
+        <div style="font-size: 20px;">El ganador es: <strong>${winner}</strong></div>
+    `;
+    resultMessage.style.color = "#2ecc71";
 }
 
 addBtn.addEventListener('click', loadNames);
