@@ -1,9 +1,7 @@
 lucky-wheel/
 ├── index.html
 ├── style.css
-│ 
 ├── app.js
-│ 
 └── assets/
     ├── spin-sound.mp3
     └── win-sound.mp3
