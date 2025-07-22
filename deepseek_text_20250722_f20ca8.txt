@@ -1,9 +1,0 @@
-/wheel-picker
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── app.js
-└── assets/
-    ├── spin-sound.mp3
-    └── win-sound.mp3
