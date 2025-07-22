@@ -1,26 +1,25 @@
-// Variables globales
+// Variables
 const wheel = document.getElementById('wheel');
 const spinBtn = document.getElementById('spin-btn');
 const namesInput = document.getElementById('names-input');
 const addBtn = document.getElementById('add-names');
-let segments = [];  // Almacenará los nombres
+const themeBtn = document.getElementById('theme-btn');
+let segments = [];
 let isSpinning = false;
 
-// Función para cargar nombres desde el textarea
+// Cargar nombres
 function loadNames() {
     const text = namesInput.value.trim();
     if (!text) {
-        alert("¡Ingresa al menos un nombre!");
+        alert("Por favor ingresa al menos un nombre");
         return;
     }
     
-    // Dividir por saltos de línea y filtrar vacíos
     segments = text.split('\n').filter(name => name.trim() !== '');
     renderWheel();
-    alert(`¡${segments.length} nombres cargados!`);
 }
 
-// Renderizar ruleta con nombres
+// Renderizar ruleta
 function renderWheel() {
     wheel.innerHTML = '';
     if (segments.length === 0) return;
@@ -29,14 +28,11 @@ function renderWheel() {
     
     segments.forEach((name, i) => {
         const segmentEl = document.createElement('div');
-        segmentEl.className = 'wheel-segment';
+        segmentEl.className = `wheel-segment segment-${i % 8}`;
         segmentEl.style.transform = `rotate(${segmentAngle * i}deg)`;
-        segmentEl.style.backgroundColor = `hsl(${(i * 360 / segments.length)}, 70%, 60%)`;
         
         const text = document.createElement('span');
         text.textContent = name;
-        text.style.transform = `rotate(${segmentAngle / 2}deg) translateX(100px) rotate(90deg)`; // Texto vertical
-        
         segmentEl.appendChild(text);
         wheel.appendChild(segmentEl);
     });
@@ -73,12 +69,20 @@ function announceWinner(finalAngle) {
     alert(`¡El ganador es: ${winner}!`);
 }
 
-// Event listeners
+// Cambiar tema
+function toggleTheme() {
+    document.documentElement.setAttribute('data-theme', 
+        document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+    );
+}
+
+// Eventos
 addBtn.addEventListener('click', loadNames);
 spinBtn.addEventListener('click', spinWheel);
+themeBtn.addEventListener('click', toggleTheme);
 
-// Inicialización (opcional: carga nombres por defecto)
+// Inicialización
 document.addEventListener('DOMContentLoaded', () => {
-    namesInput.value = "Ejemplo 1\nEjemplo 2\nEjemplo 3"; // Nombres de prueba
+    namesInput.value = "Ana\nCarlos\nMaría\nLuis\nSofía\nJavier";
     loadNames();
 });
