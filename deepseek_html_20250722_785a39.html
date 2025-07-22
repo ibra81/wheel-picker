@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Wheel Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="glass-container">
+        <!-- Header -->
+        <header class="header animate__animated animate__fadeInDown">
+            <h1>🎡 Lucky Wheel Picker</h1>
+            <p>¡Gira y descubre tu premio!</p>
+        </header>
+
+        <!-- Ruleta -->
+        <main class="wheel-section">
+            <div class="wheel-wrapper">
+                <div id="wheel" class="wheel"></div>
+                <div class="pointer"></div>
+                <button id="spin-btn" class="btn-spin animate__pulse">GIRAR</button>
+            </div>
+
+            <!-- Panel de control -->
+            <div class="control-panel">
+                <textarea id="names-input" placeholder="Ejemplo:\nPremio 1\nPremio 2\nPremio 3"></textarea>
+                <div class="buttons">
+                    <button id="add-btn" class="btn">Añadir</button>
+                    <button id="theme-btn" class="btn">🌓 Tema</button>
+                    <button id="reset-btn" class="btn">🔄 Reiniciar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Sonidos -->
+    <audio id="spin-sound" src="assets/spin-sound.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="assets/win-sound.mp3" preload="auto"></audio>
+
+    <!-- GSAP + Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
